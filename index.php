@@ -3,7 +3,7 @@
 // Base URL. Example: http://google.com
 define('BASE_URL', $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['SERVER_NAME']);
 
-// Database
+// Config Database
 const DB_HOST = 'localhost';
 const DB_USER = 'root';
 const DB_PASS = 'root';
@@ -17,7 +17,7 @@ header('Expires: 0');
 // class
 require __DIR__ . '/Note.class.php';
 
-// Base var
+// var
 $note  = $_GET['note'] ?? '';
 $text  = $_POST['text'] ?? '';
 $raw   = isset($_GET['raw']);
@@ -43,7 +43,7 @@ if ($_note->id) {
         // new note
         $_note->new();
     } else {
-        // id not fount
+        // note not fount
         exit('Not found');
     }
 }

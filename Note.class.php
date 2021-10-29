@@ -10,17 +10,7 @@
         public function __construct($noteId)
         {
             // connect database
-            try {
-                $this->db = new PDO('mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=utf8mb4', DB_USER, DB_PASS, [
-                    PDO::ATTR_ERRMODE                  => PDO::ERRMODE_EXCEPTION,
-                    PDO::ATTR_EMULATE_PREPARES         => false,
-                    PDO::ATTR_DEFAULT_FETCH_MODE       => PDO::FETCH_OBJ,
-                    PDO::MYSQL_ATTR_USE_BUFFERED_QUERY => true
-                ]);
-            } catch (PDOException $e) {
-                echo '<h2>MySQL ERROR: ' . $e->getCode() . '</h2>';
-                exit($e->getMessage());
-            }
+            $this->connectDb();
 
             // set node id and data
             if ($this->very($noteId)) {
@@ -35,7 +25,22 @@
             exit;
         }
 
-        // very note id
+        function connectDb()
+        {
+            try {
+                $this->db = new PDO('mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=utf8mb4', DB_USER, DB_PASS, [
+                    PDO::ATTR_ERRMODE                  => PDO::ERRMODE_EXCEPTION,
+                    PDO::ATTR_EMULATE_PREPARES         => false,
+                    PDO::ATTR_DEFAULT_FETCH_MODE       => PDO::FETCH_OBJ,
+                    PDO::MYSQL_ATTR_USE_BUFFERED_QUERY => true
+                ]);
+            } catch (PDOException $e) {
+                echo '<h2>MySQL ERROR: ' . $e->getCode() . '</h2>';
+                exit($e->getMessage());
+            }
+
+        }
+
         public function very($id): bool
         {
             // check lenght
@@ -77,7 +82,6 @@
 
             return $stmt->fetch();
         }
-
 
         function update($text)
         {
