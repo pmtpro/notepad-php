@@ -1,0 +1,10 @@
+Options -Indexes
+DirectoryIndex index.php
+
+RewriteEngine On
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteRule ^(.+)/raw$ index.php?note=$1&raw=1 [END]
+RewriteRule ^(.*)$     index.php?note=$1 [END]
